@@ -44,7 +44,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 22 "parser.y"
+#line 23 "parser.y"
 
     #include <string>
 
@@ -55,8 +55,13 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    IDENTIFIER = 258,
-    NUMBER = 259
+    CHAIN = 258,
+    NUMBER = 259,
+    IF = 260,
+    OTHERWISE = 261,
+    FUNCTION = 262,
+    RETURN = 263,
+    WHILE = 264
   };
 #endif
 
@@ -69,7 +74,7 @@ union YYSTYPE
     std::string *str; // Para identificadores
     int num;          // Para números
 
-#line 73 "parser.tab.hh"
+#line 78 "parser.tab.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;

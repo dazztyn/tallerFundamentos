@@ -16,8 +16,9 @@ void yyerror(const char *s) {
     int num;          // Para números
 }
 
-%token <str> IDENTIFIER
+%token <str> CHAIN
 %token <num> NUMBER
+%token IF OTHERWISE FUNCTION RETURN WHILE
 
 %code requires {
     #include <string>
@@ -37,12 +38,38 @@ statement_list:
     ;
 
 statement:
-    IDENTIFIER '=' NUMBER ';'
+    CHAIN '=' NUMBER ';'
     {
         cout << "Asignación: " << *$1 << " = " << $3 << endl;
         delete $1; // Libera la memoria asignada al identificador
     }
+    | IF '(' condition ')' '{' block '}' OTHERWISE '{' block '}'
+    {
+        cout << "Condicional ejecutada con 'otherwise'." << endl;
+    }
+    | FUNCTION CHAIN '(' ')' '{' block '}'
+    {
+        cout << "Definición de función: " << *$2 << endl;
+        delete $2;
+    }
+    | RETURN NUMBER ';'
+    {
+        cout << "Retorno: " << $2 << endl;
+    }
     ;
+
+condition:
+    CHAIN
+    {
+        cout << "Evaluando condición: " << *$1 << endl;
+        delete $1;
+    }
+    ;
+
+block:
+    statement_list
+    ;
+
 %%
 int main() {
     return yyparse();
