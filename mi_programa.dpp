@@ -1,0 +1,8 @@
+integer num = 5;
+
+if(num == 5){
+    integer num2 = 6;
+}
+otherwise{
+    integer num2 = 7;
+}
